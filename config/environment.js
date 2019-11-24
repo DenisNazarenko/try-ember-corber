@@ -1,26 +1,29 @@
 'use strict';
 
+const { api: UseApi } = require('yargs').argv;
+
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'try-ember-corber',
-    environment,
-    rootURL: '/',
-    locationType: 'auto',
+    APP: {
+      api: {
+        host: UseApi ? 'http://localhost:3000' : 'http://localhost:4200',
+        namespace: UseApi ? null : 'api'
+      }
+    },
     EmberENV: {
-      FEATURES: {
-        // Here you can enable experimental features on an ember canary build
-        // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
-      },
+      FEATURES: {},
       EXTEND_PROTOTYPES: {
-        // Prevent Ember Data from overriding Date.parse.
         Date: false
       }
     },
-
-    APP: {
-      // Here you can pass flags/options to your application instance
-      // when it is created
-    }
+    'ember-cli-mirage': {
+      enabled: !UseApi
+    },
+    environment,
+    locationType: 'hash',
+    modulePrefix: 'mobileapp',
+    podModulePrefix: 'mobileapp/pods',
+    rootURL: ''
   };
 
   if (environment === 'development') {
