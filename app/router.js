@@ -7,4 +7,6 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function() {
+  this.route('external', { path: '' });
+  this.route('internal');
 });
